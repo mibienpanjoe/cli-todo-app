@@ -15,3 +15,12 @@ func NewStorage [T any] (filename string) *Storage[T]{
 	}
 }
 
+func (s *Storage[T]) save(data *T) error {
+	fileData , err := json.MarshalIndent(data , "", "    ")
+
+	if err != nil {
+		return err
+	}
+
+	return os.WriteFile(s.Filename , fileData , 0644)
+}
