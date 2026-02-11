@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
-
 func main() {
-	fmt.Println("Starting the Todo app")
+	todos := Todos{}
+	storage := NewStorage[Todos]("todos.json")
+	storage.load(&todos)
+	cmdFlags := NewCmdFlags()
+	cmdFlags.Execute(&todos)
+	storage.save(&todos)
 }
