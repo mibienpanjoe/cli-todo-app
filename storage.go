@@ -15,6 +15,7 @@ func NewStorage [T any] (filename string) *Storage[T]{
 	}
 }
 
+// converts data to JSON and write it to a file
 func (s *Storage[T]) save(data *T) error {
 	fileData , err := json.MarshalIndent(data , "", "    ")
 
@@ -25,7 +26,7 @@ func (s *Storage[T]) save(data *T) error {
 	return os.WriteFile(s.Filename , fileData , 0644)
 }
 
-
+//reads file converts JSON back and puts it into data
 func (s *Storage[T]) load(data *T) error {
 	fileData , err := os.ReadFile(s.Filename)
 
