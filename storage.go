@@ -24,3 +24,14 @@ func (s *Storage[T]) save(data *T) error {
 
 	return os.WriteFile(s.Filename , fileData , 0644)
 }
+
+
+func (s *Storage[T]) load(data *T) error {
+	fileData , err := os.ReadFile(s.Filename)
+
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(fileData ,data)
+}
